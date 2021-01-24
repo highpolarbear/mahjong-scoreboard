@@ -1,7 +1,28 @@
+@font-face {
+  font-family: 'zh-light';
+  src: local('light'), url('./fonts/TaipeiSansTC-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'zh-regular';
+  src: local('regular'), url('./fonts/TaipeiSansTC-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}  
+
+@font-face {
+  font-family: 'zh-bold';
+  src: local('bold'), url('./fonts/TaipeiSansTC-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: 'Helvetica Neue', 'zh-regular', 'zh-light', 'zh-bold', -apple-system,  BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
