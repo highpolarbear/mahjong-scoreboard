@@ -45,7 +45,7 @@ const matchSchema = new Schema({
 });
 
 function arrayLimit(val) {
-  return val.length <= 3;
+  return val.length >= 1 && val.length <= 3;
 }
 
 const Match = mongoose.model("Match", matchSchema);
