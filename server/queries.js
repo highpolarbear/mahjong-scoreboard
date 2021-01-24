@@ -77,7 +77,7 @@ const findMatchByDateRange = async (req, res) => {
     });
     return res.send(result);
   } catch (err) {
-    res.status(404);
+    // res.status(500);
     return res.send(err);
   }
 };
@@ -89,7 +89,7 @@ const findMatchById = async (req, res) => {
     const result = await Match.findById({ $in: body.id });
     return res.send(result);
   } catch (err) {
-    res.status(404);
+    // res.status(500);
     return res.send(err);
   }
 };
@@ -101,22 +101,3 @@ module.exports = {
   findMatchById,
   findMatchByDateRange,
 };
-
-// const test = async (req, res) => {
-//   const test = new User({
-//     name: "Gavin",
-//     score: 3,
-//     index: 300,
-//   });
-
-//   await test.save(function (err, fluffy) {
-//     if (err) return console.error(err);
-//   });
-
-//   //   Kitten.find(function (err, kittens) {
-//   //     if (err) return console.error(err);
-//   //     return res.send({ kittens });
-//   //   });
-//   //   res.status(500);
-//   return res.send({ msg: "success" });
-// };
