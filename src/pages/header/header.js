@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import cssValues from "../../utils/cssValues.json";
 
@@ -13,17 +14,10 @@ const BaseWrapper = styled.div`
     content: "";
     display: block;
     @media (min-width: ${cssValues.limits.mobileLimit}) {
-      height: 0.3vw;
+      height: 0.5vw;
     }
     height: 1vw;
-    background: linear-gradient(
-      to right,
-      #0c590c,
-      #1d891d,
-      #ffffff,
-      #f43d3d,
-      #f43d3d
-    );
+    background: linear-gradient(to right, #0c590c, #1d891d, #0a8e0a, #ffffff);
   }
   margin-bottom: 1vw;
   @media (min-width: ${cssValues.limits.mobileLimit}) {
@@ -65,11 +59,14 @@ const Subtitle = styled.div`
 `;
 
 const Header = () => {
+  const history = useHistory();
   return (
     <BaseWrapper>
       <div>
         <LogoGroup>
-          <Logo />
+          {/* <a href="/"> */}
+          <Logo onClick={() => history.push("/")} />
+          {/* </a> */}
           <Wrapper>
             <Title>麻將計分器</Title>
             <Subtitle>仲使乜用籌碼啊！</Subtitle>

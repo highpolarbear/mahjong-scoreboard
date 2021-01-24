@@ -1,11 +1,18 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import { wrapHistory } from "oaf-react-router";
+import Header from "./pages/header/header";
 import Home from "./pages/home/home";
 import Dashboard from "./pages/dashboard/dashboard";
 
+const history = createBrowserHistory();
+wrapHistory(history);
+
 const Routes = () => {
   return (
-    <Router>
+    <Router history={history}>
+      <Header />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/dashboard" exact component={Dashboard} />
