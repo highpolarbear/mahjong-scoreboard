@@ -9,11 +9,14 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "history": "^5.0.0",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.13",
     "nodemon": "^2.0.7",
+    "oaf-react-router": "^2.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
   },
@@ -55,5 +58,5 @@
   "bugs": {
     "url": "https://github.com/gavvvin/mahjong-scoreboard/issues"
   },
-  "homepage": "https://github.com/gavvvin/mahjong-scoreboard#readme"
+  "homepage": "."
 }
