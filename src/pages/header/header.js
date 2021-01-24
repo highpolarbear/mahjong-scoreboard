@@ -12,8 +12,18 @@ const BaseWrapper = styled.div`
   ::before {
     content: "";
     display: block;
-    height: 0.3vw;
-    background: linear-gradient(to right, #0021e2, #f43d3d);
+    @media (min-width: ${cssValues.limits.mobileLimit}) {
+      height: 0.3vw;
+    }
+    height: 1vw;
+    background: linear-gradient(
+      to right,
+      #0c590c,
+      #1d891d,
+      #ffffff,
+      #f43d3d,
+      #f43d3d
+    );
   }
   margin-bottom: 1vw;
   @media (min-width: ${cssValues.limits.mobileLimit}) {
