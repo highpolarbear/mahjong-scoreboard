@@ -31,6 +31,12 @@ const createUser = async (req, res) => {
   return res.send(result);
 };
 
+const getAllUser = async (req, res) => {
+  const result = await User.find({});
+  console.log(result);
+  return res.send({ result });
+};
+
 const findUser = async (req, res) => {
   const body = req.body;
   const result = await User.findOne({ _id: body.id });
@@ -96,6 +102,7 @@ const findMatchById = async (req, res) => {
 
 module.exports = {
   createUser,
+  getAllUser,
   findUser,
   logMatch,
   findMatchById,

@@ -3,9 +3,10 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import cssValues from "../../utils/cssValues.json";
+import { Title, Subtitle } from "../../components/text/text";
 
 const BaseWrapper = styled.div`
-  height: 15vw;
+  height: 5rem;
   width: 100%;
   z-index: 99;
   background-color: white;
@@ -14,32 +15,58 @@ const BaseWrapper = styled.div`
     content: "";
     display: block;
     @media (min-width: ${cssValues.limits.mobileLimit}) {
-      height: 0.5vw;
+      height: 0.5rem;
     }
-    height: 1vw;
+    height: 1rem;
     background: linear-gradient(to right, #0c590c, #1d891d, #0a8e0a, #ffffff);
   }
-  margin-bottom: 1vw;
+  margin-bottom: 2rem;
   @media (min-width: ${cssValues.limits.mobileLimit}) {
-    height: 4vw;
+    height: 4rem;
   }
+`;
+
+const MainWrapper = styled.div`
+  max-width: 980px;
+  margin: 0 auto;
 `;
 
 const LogoGroup = styled.div`
   display: flex;
-  margin: 0.6vw auto;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  float: left;
+`;
+
+const MenuGroup = styled.div`
+  display: none;
+  float: right;
+  @media (min-width: ${cssValues.limits.mobileLimit}) {
+    display: flex;
+  }
+`;
+
+const MenuItem = styled.div`
+  display: inline-block;
+  position: relative;
+  margin: auto;
+  padding: 0 1rem;
+`;
+
+const Link = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Logo = styled.img.attrs(() => ({
   src: logo,
   alt: "logo",
 }))`
-  height: 10vw;
-  margin-left: 0.5rem;
-  vertical-align: middle;
+  height: 2.5rem;
+  margin: auto 0 auto 0.5rem;
   @media (min-width: ${cssValues.limits.mobileLimit}) {
-    height: 2.5vw;
-    margin-left: 1rem;
+    margin: auto 0;
   }
 `;
 
@@ -47,32 +74,38 @@ const Wrapper = styled.div`
   padding-left: 1rem;
 `;
 
-const Title = styled.div`
-  font-family: zh-bold;
-  font-size: 1.25rem;
-`;
-
-const Subtitle = styled.div`
-  padding-top: 0.5rem;
-  font-family: zh-light;
-  font-size: 0.8rem;
-`;
-
 const Header = () => {
   const history = useHistory();
   return (
     <BaseWrapper>
-      <div>
-        <LogoGroup>
-          {/* <a href="/"> */}
-          <Logo onClick={() => history.push("/")} />
-          {/* </a> */}
-          <Wrapper>
-            <Title>麻將計分器</Title>
-            <Subtitle>仲使乜用籌碼啊！</Subtitle>
-          </Wrapper>
-        </LogoGroup>
-      </div>
+      <MainWrapper>
+        <div>
+          <LogoGroup>
+            <Logo onClick={() => history.push("/")} />
+            <Wrapper>
+              <Title>麻將計分器</Title>
+              <Subtitle>仲使乜用籌碼啊！</Subtitle>
+            </Wrapper>
+          </LogoGroup>
+          <MenuGroup>
+            <MenuItem>
+              <Link onClick={() => history.push("/")}>
+                <p>主頁</p>
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link onClick={() => history.push("/")}>
+                <p>加入玩家</p>
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link onClick={() => history.push("/")}>
+                <p>記錄賽果</p>
+              </Link>
+            </MenuItem>
+          </MenuGroup>
+        </div>
+      </MainWrapper>
     </BaseWrapper>
   );
 };
