@@ -11,6 +11,8 @@ const BaseWrapper = styled.div`
   z-index: 99;
   background-color: white;
   box-shadow: 0px 0.5px 14px 0px #cacaca;
+  position: fixed;
+  top: 0;
   ::before {
     content: "";
     display: block;

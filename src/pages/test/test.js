@@ -1,5 +1,5 @@
 import React from "react";
-import CreateUser from "../modals/createUser";
+import CreateUser from "../createUser/createUser";
 
 const Test = () => {
   return (
