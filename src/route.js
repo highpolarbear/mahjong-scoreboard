@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Header from "./pages/header/header";
 import Home from "./pages/home/home";
 import Dashboard from "./pages/dashboard/dashboard";
+import Test from "./pages/test/test";
 
 const history = createBrowserHistory();
 wrapHistory(history);
@@ -26,6 +27,7 @@ const Routes = () => {
           <Route path="/create-user" exact component={Home} />
           <Route path="/create-match" exact component={Home} />
           <Route path="/view-match" exact component={Home} />
+          <Route path="/test" exact component={Test} />
           <Route component={Dashboard} />
         </Switch>
       </StyledWrapper>

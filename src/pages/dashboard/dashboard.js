@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
 import cssValues from "../../utils/cssValues.json";
 import { TitleLargeReg } from "../../components/text/text";
+import RankingBox from "../../components/rankingbox/rankingbox";
 import hatsu from "../../assets/hatsu.png";
 import chun from "../../assets/chun.png";
-
-const Spacing32 = styled.div`
-  padding-bottom: 2rem;
-`;
-
-const Spacing64 = styled.div`
-  padding-bottom: 4rem;
-`;
+import { Spacing32, Spacing96 } from "../../components/spacing/spacing";
 
 const BaseWrapper = styled.div`
   @media (max-width: ${cssValues.limits.mobileLimit}) {
@@ -19,9 +18,10 @@ const BaseWrapper = styled.div`
   }
 `;
 
-const Section = styled.div`
+const Header = styled.div`
   display: flex;
   flex-direction: row;
+  padding-bottom: 1rem;
 `;
 
 const HeaderIcon = styled.img`
@@ -31,8 +31,38 @@ const HeaderIcon = styled.img`
   margin-right: 1rem;
 `;
 
-const Dashboard = () => {
+const Section = styled.div``;
+
+const AddUser = styled.div`
+  color: #000096;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
+
+const useStyles = makeStyles((theme) => ({
+  gridList: {
+    flexWrap: "nowrap",
+    transform: "translateZ(0)",
+    height: "23rem",
+  },
+  gridListTile: {
+    position: "relative",
+    float: "left",
+    overflow: "hidden",
+    height: "100% !important",
+    [theme.breakpoints.up(cssValues.limits.mobileLimit.slice(0, -2))]: {
+      marginRight: "-3.5rem",
+    },
+  },
+}));
+
+const Dashboard = (props) => {
   const [contestants, setContestants] = useState([]);
+  const classes = useStyles();
+  const history = useHistory();
 
   useEffect(() => {
     async function getContestants() {
@@ -47,34 +77,64 @@ const Dashboard = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          return data.result;
+          return data.result.sort(function (a, b) {
+            return b.score - a.score;
+          });
         });
+
+      console.log(response);
       setContestants(response);
     }
     getContestants();
   }, []);
 
+  function GridListCompound() {
+    const theme = useTheme();
+    const matches = useMediaQuery(
+      theme.breakpoints.up(cssValues.limits.mobileLimit.slice(0, -2))
+    );
+
+    return (
+      <GridList className={classes.gridList} cols={matches ? "2.5" : "1"}>
+        {contestants &&
+          contestants.map((contestant, index) => {
+            return (
+              <GridListTile className={classes.gridListTile}>
+                <RankingBox
+                  rank={index + 1}
+                  score={contestant.score}
+                  player={contestant.name}
+                />
+              </GridListTile>
+            );
+          })}
+      </GridList>
+    );
+  }
+
   return (
     <BaseWrapper>
       <Spacing32 />
       <Section>
-        <HeaderIcon src={hatsu} alt="" />
-        <TitleLargeReg>參賽者</TitleLargeReg>
+        <Header>
+          <HeaderIcon src={hatsu} alt="" />
+          <TitleLargeReg>參賽者</TitleLargeReg>
+          <AddUser
+            onClick={() => {
+              history.push("/create-user");
+            }}
+          >
+            + 增加玩家
+          </AddUser>
+        </Header>
+
+        <GridListCompound />
       </Section>
-      {contestants &&
-        contestants.map((contestant) => {
-          return (
-            <div>
-              <div>{contestant.name}</div>
-              <div>{contestant.score}</div>
-            </div>
-          );
-        })}
-      <Spacing64 />
-      <Section>
+      <Spacing96 />
+      <Header>
         <HeaderIcon src={chun} alt="" />
-        <TitleLargeReg>最近成績</TitleLargeReg>
-      </Section>
+        <TitleLargeReg>最近賽事</TitleLargeReg>
+      </Header>
     </BaseWrapper>
   );
 };
