@@ -95,15 +95,19 @@ const Dashboard = (props) => {
     );
 
     return (
-      <GridList className={classes.gridList} cols={matches ? "2.5" : "1"}>
+      <GridList className={classes.gridList} cols={matches ? 2.5 : 1}>
         {contestants &&
           contestants.map((contestant, index) => {
             return (
-              <GridListTile className={classes.gridListTile}>
+              <GridListTile
+                className={classes.gridListTile}
+                key={contestant._id}
+              >
                 <RankingBox
                   rank={index + 1}
                   score={contestant.score}
                   player={contestant.name}
+                  key={contestant._id}
                 />
               </GridListTile>
             );
