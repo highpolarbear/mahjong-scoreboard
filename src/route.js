@@ -15,6 +15,7 @@ wrapHistory(history);
 const StyledWrapper = styled.div`
   max-width: 980px;
   margin: 0 auto;
+  padding-top: 5rem;
 `;
 
 const Routes = () => {
