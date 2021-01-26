@@ -36,6 +36,9 @@ const LogoGroup = styled.div`
   margin: 0.5rem 0;
   overflow: hidden;
   float: left;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const MenuGroup = styled.div`
@@ -80,8 +83,8 @@ const Header = () => {
     <BaseWrapper>
       <MainWrapper>
         <div>
-          <LogoGroup>
-            <Logo onClick={() => history.push("/")} />
+          <LogoGroup onClick={() => history.push("/")}>
+            <Logo />
             <Wrapper>
               <Title>麻將計分器</Title>
               <Subtitle>仲使乜用籌碼啊！</Subtitle>
@@ -94,7 +97,7 @@ const Header = () => {
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link onClick={() => history.push("/")}>
+              <Link onClick={() => history.push("/create-user")}>
                 <p>增加玩家</p>
               </Link>
             </MenuItem>
