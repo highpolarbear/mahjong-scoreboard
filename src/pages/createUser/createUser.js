@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import cssValues from "../../utils/cssValues.json";
 import Inputbox from "../../components/inputbox/inputbox";
@@ -22,27 +23,34 @@ const Emoji = styled.div`
 
 const CreateUser = () => {
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = async (data) => {
-    console.log(data);
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "/create-user",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: data.name,
-        }),
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+  const [errAlrExist, setErrAlrExist] = useState(false);
+  const history = useHistory();
 
-    console.log(response);
+  const onSubmit = async (data) => {
+    await fetch(process.env.REACT_APP_API_URL + "/create-user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: data.name,
+      }),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        history.push("/dashboard");
+      })
+      .catch((err) => {
+        setErrAlrExist(true);
+      });
   };
+
+  useEffect(() => {
+    if (errAlrExist) {
+      alert("好似有人用咗呢個名喇喎，試下用其他名啦！");
+      setErrAlrExist(false);
+    }
+  }, [errAlrExist]);
   return (
     <Wrapper>
       <Header>
