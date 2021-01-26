@@ -16,3 +16,9 @@ export const Subtitle = styled.div`
   font-family: zh-light;
   font-size: 0.8rem;
 `;
+
+export const Caption = styled.div`
+  padding-top: 0.5rem;
+  font-family: zh-light;
+  font-size: 0.8rem;
+`;

@@ -18,7 +18,7 @@ const BaseWrapper = styled.div`
       height: 0.5rem;
     }
     height: 1rem;
-    background: linear-gradient(to right, #0c590c, #1d891d, #0a8e0a, #ffffff);
+    background: linear-gradient(to right, #03897f, #40c1b7, #04bfb1, #ffffff);
   }
   margin-bottom: 2rem;
   @media (min-width: ${cssValues.limits.mobileLimit}) {
@@ -95,7 +95,7 @@ const Header = () => {
             </MenuItem>
             <MenuItem>
               <Link onClick={() => history.push("/")}>
-                <p>加入玩家</p>
+                <p>增加玩家</p>
               </Link>
             </MenuItem>
             <MenuItem>
