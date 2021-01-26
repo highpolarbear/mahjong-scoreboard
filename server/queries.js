@@ -26,7 +26,8 @@ const createUser = async (req, res) => {
     result = await user.save();
     console.log("res", result);
   } catch (err) {
-    return res.send(err);
+    res.status(400);
+    return res.send("Error: Bad request. Name already exists.");
   }
   return res.send(result);
 };
