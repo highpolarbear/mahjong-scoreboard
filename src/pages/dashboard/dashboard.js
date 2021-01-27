@@ -5,6 +5,11 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 import cssValues from "../../utils/cssValues.json";
 import { TitleLargeReg, Link } from "../../components/text/text";
 import RankingBox from "../../components/rankingbox/rankingbox";
@@ -14,7 +19,7 @@ import { Spacing32, Spacing96 } from "../../components/spacing/spacing";
 
 const BaseWrapper = styled.div`
   @media (max-width: ${cssValues.limits.mobileLimit}) {
-    padding: 0 1rem;
+    padding: 0 1rem 5rem 1rem;
   }
   padding-bottom: 5rem;
 `;
@@ -42,7 +47,8 @@ const Section = styled.div`
     box-shadow: 0px 30px 60px 0px #cacaca;
     transition: box-shadow 0.3s ease-in-out;
     padding: 4rem;
-    border-radius: 5rem;
+    border-radius: 2rem;
+    border: 0.1px solid #eeeeee;
   }
 `;
 
@@ -58,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     flexWrap: "nowrap",
     transform: "translateZ(0)",
-    height: "23rem",
+    height: "20rem",
   },
   gridListTile: {
     position: "relative",
@@ -73,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = (props) => {
   const [contestants, setContestants] = useState([]);
+  const [contests, setContests] = useState([]);
   const classes = useStyles();
   const history = useHistory();
 
@@ -94,13 +101,34 @@ const Dashboard = (props) => {
           });
         });
 
-      console.log(response);
       setContestants(response);
     }
     getContestants();
   }, []);
 
-  function Players() {
+  useEffect(() => {
+    async function getContests() {
+      const response = await fetch(
+        process.env.REACT_APP_API_URL + "/get-all-match",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          return data.sort(function (a, b) {
+            return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
+          });
+        });
+      setContests(response);
+    }
+    getContests();
+  }, []);
+
+  const Players = () => {
     const theme = useTheme();
     const matches = useMediaQuery(
       theme.breakpoints.up(cssValues.limits.mobileLimit.slice(0, -2))
@@ -110,7 +138,7 @@ const Dashboard = (props) => {
         {contestants.length === 0 ? (
           <EmptyWarningText>好似未有人喎</EmptyWarningText>
         ) : (
-          <GridList className={classes.gridList} cols={matches ? 2.5 : 1}>
+          <GridList className={classes.gridList} cols={matches ? 2.5 : 2}>
             {contestants.map((contestant, index) => {
               return (
                 <GridListTile
@@ -130,7 +158,60 @@ const Dashboard = (props) => {
         )}
       </div>
     );
-  }
+  };
+
+  const Contests = () => {
+    const theme = useTheme();
+    return (
+      <div>
+        {contests.length === 0 ? (
+          <EmptyWarningText>仲未有比賽喎</EmptyWarningText>
+        ) : (
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">時間</TableCell>
+                <TableCell align="center">贏家</TableCell>
+                <TableCell align="center">輸家</TableCell>
+                <TableCell align="center">自摸/出銃</TableCell>
+                <TableCell align="center">番數（每位輸家）</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {contests.map((contest) => {
+                const date = new Date(contest.date);
+                return (
+                  <TableRow key={contest._id}>
+                    <TableCell align="center">
+                      {date.getUTCDate()}
+                      {"/"}
+                      {date.getUTCMonth() + 1}
+                      {"/"}
+                      {date.getUTCFullYear()} {date.getUTCHours()}
+                      {":"}
+                      {date.getUTCMinutes()}
+                    </TableCell>
+                    <TableCell align="center">
+                      {contest.players.winner.name}
+                    </TableCell>
+                    <TableCell align="center">
+                      {contest.players.loser.map((user) => {
+                        return user.name + " ";
+                      })}
+                    </TableCell>
+                    <TableCell align="center">
+                      {contest.isSelfDraw ? "自摸" : "出銃"}
+                    </TableCell>
+                    <TableCell align="center">{contest.score}</TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        )}
+      </div>
+    );
+  };
 
   return (
     <BaseWrapper>
@@ -139,7 +220,7 @@ const Dashboard = (props) => {
         <Header>
           <HeaderTitle>
             <HeaderIcon src={hatsu} alt="" />
-            <TitleLargeReg>參賽者</TitleLargeReg>
+            <TitleLargeReg>排行榜</TitleLargeReg>
           </HeaderTitle>
           <Link
             onClick={() => {
@@ -166,6 +247,7 @@ const Dashboard = (props) => {
             + 記錄賽果
           </Link>
         </Header>
+        <Contests />
       </Section>
     </BaseWrapper>
   );

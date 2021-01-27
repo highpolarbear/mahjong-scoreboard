@@ -5,10 +5,11 @@ import cssValues from "../../utils/cssValues.json";
 const Wrapper = styled.div`
   position: relative;
   top: 3rem;
-  border-radius: 10px;
-  width: 15rem;
-  height: 15rem;
-  box-shadow: 10px 15px 15px 0px #cacaca;
+  border-radius: 5px;
+  width: 13rem;
+  height: 13rem;
+  box-shadow: 0px 15px 15px 0px #cacaca;
+  border: 0.1px solid #eeeeee;
   transition: box-shadow 0.3s ease-in-out;
   margin: 0 0 0 1rem;
   @media (max-width: ${cssValues.limits.mobileLimit}) {
@@ -16,7 +17,7 @@ const Wrapper = styled.div`
   }
 
   &:hover {
-    box-shadow: 20px 30px 15px 0px #cacaca;
+    box-shadow: 0px 30px 15px 0px #cacaca;
     transition: box-shadow 0.3s ease-in-out;
   }
 `;
@@ -27,15 +28,15 @@ const RankWrapper = styled.div`
   font-family: zh-bold;
   font-size: 4em;
   height: 4rem;
-  width: 3rem;
-  background-color: white
+  width: 2rem;
+  background-color: white;
   text-align: center;
   position: absolute;
-  transform: translate(-0.5rem, -2rem);
+  transform: translate(1rem, -2rem);
 `;
 
 const Hash = styled.div`
-  font-size: 3rem;
+  font-size: 2rem;
 `;
 
 const ContentWrapper = styled.div`
@@ -65,7 +66,7 @@ export const RankingBox = (props) => {
   return (
     <Wrapper>
       <RankWrapper>
-        <Hash>#</Hash>
+        {/* <Hash>#</Hash> */}
         {rank}
       </RankWrapper>
       <ContentWrapper>

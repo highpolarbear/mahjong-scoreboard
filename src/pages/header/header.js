@@ -108,6 +108,11 @@ const Header = () => {
                 <p>記錄賽果</p>
               </Link>
             </MenuItem>
+            <MenuItem>
+              <Link onClick={() => history.push("/")}>
+                <p>番數表</p>
+              </Link>
+            </MenuItem>
           </MenuGroup>
         </div>
       </MainWrapper>

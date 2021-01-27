@@ -24,7 +24,6 @@ const createUser = async (req, res) => {
   var result;
   try {
     result = await user.save();
-    console.log("res", result);
   } catch (err) {
     res.status(400);
     return res.send("Error: Bad request. Name already exists.");
@@ -34,7 +33,6 @@ const createUser = async (req, res) => {
 
 const getAllUser = async (req, res) => {
   const result = await User.find({});
-  console.log(result);
   return res.send({ result });
 };
 
@@ -45,10 +43,9 @@ const findUser = async (req, res) => {
 };
 
 const modifyUserScore = async (isSelfDraw, players, score) => {
-  if (!isSelfDraw && players.loser.length > 0) {
-    throw new "Non-self-draw matches cannot have more than one loser."();
-  }
-  if (players.winner && players.loser) {
+  if (isSelfDraw === "false" && players.loser.length > 1) {
+    return "Non-self-draw matches cannot have more than one loser.";
+  } else if (players.winner && players.loser) {
     const winner = await User.updateOne(
       { _id: players.winner },
       { $inc: { score: isSelfDraw ? score * players.loser.length : score } }
@@ -68,15 +65,31 @@ const logMatch = async (req, res) => {
   const body = req.body;
   const match = new Match(body);
   try {
-    const matchRes = await match.save();
     const updateUserRes = await modifyUserScore(
       body.isSelfDraw,
       body.players,
       body.score
     );
+    if (typeof updateUserRes === "string") {
+      throw updateUserRes;
+    }
+    const matchRes = await match.save();
     return res.send({ matchRes, updateUserRes });
   } catch (err) {
     res.status(400);
+    return res.send(err);
+  }
+};
+
+const getAllMatch = async (req, res) => {
+  const body = req.body;
+  try {
+    const result = await Match.find({})
+      .populate("players.winner")
+      .populate("players.loser");
+
+    return res.send(result);
+  } catch (err) {
     return res.send(err);
   }
 };
@@ -99,9 +112,9 @@ const findMatchByDateRange = async (req, res) => {
 
 const findMatchById = async (req, res) => {
   const body = req.body;
-  console.log(body.id);
   try {
     const result = await Match.findById({ $in: body.id });
+    // const players = db..find({"_id":{"$in":result["address_ids"]}})
     return res.send(result);
   } catch (err) {
     // res.status(500);
@@ -114,6 +127,7 @@ module.exports = {
   getAllUser,
   findUser,
   logMatch,
+  getAllMatch,
   findMatchById,
   findMatchByDateRange,
 };

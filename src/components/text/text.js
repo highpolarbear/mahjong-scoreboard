@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Title = styled.div`
   font-family: zh-bold;
   font-size: 1.25rem;
+  letter-spacing: 0.1rem;
 `;
 
 export const TitleLargeReg = styled.div`
@@ -15,6 +16,7 @@ export const Subtitle = styled.div`
   padding-top: 0.5rem;
   font-family: zh-light;
   font-size: 0.8rem;
+  letter-spacing: 0.05rem;
 `;
 
 export const Caption = styled.div`
