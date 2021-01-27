@@ -27,6 +27,10 @@ const matchSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  isSelfDraw: {
+    type: Boolean,
+    default: false,
+  },
   players: {
     winner: {
       type: mongoose.ObjectId,
@@ -39,13 +43,13 @@ const matchSchema = new Schema({
           type: mongoose.ObjectId,
         },
       ],
-      validate: [arrayLimit, "{PATH} exceeds the limit of 3"],
+      validate: [arrayLimit, "{PATH} wrong number of losers."],
     },
   },
 });
 
 function arrayLimit(val) {
-  return val.length <= 3;
+  return val.length >= 1 && val.length <= 3;
 }
 
 const Match = mongoose.model("Match", matchSchema);

@@ -37,11 +37,14 @@ const findUser = async (req, res) => {
   return res.send(result);
 };
 
-const modifyUserScore = async (players, score) => {
+const modifyUserScore = async (isSelfDraw, players, score) => {
+  if (!isSelfDraw && players.loser.length > 0) {
+    throw new "Non-self-draw matches cannot have more than one loser."();
+  }
   if (players.winner && players.loser) {
     const winner = await User.updateOne(
       { _id: players.winner },
-      { $inc: { score: score } }
+      { $inc: { score: isSelfDraw ? score * players.loser.length : score } }
     ).exec();
     const loser = await User.updateMany(
       { _id: { $in: players.loser } },
@@ -59,9 +62,14 @@ const logMatch = async (req, res) => {
   const match = new Match(body);
   try {
     const matchRes = await match.save();
-    const updateUserRes = await modifyUserScore(body.players, body.score);
+    const updateUserRes = await modifyUserScore(
+      body.isSelfDraw,
+      body.players,
+      body.score
+    );
     return res.send({ matchRes, updateUserRes });
   } catch (err) {
+    res.status(400);
     return res.send(err);
   }
 };
