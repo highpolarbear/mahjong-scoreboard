@@ -22,3 +22,13 @@ export const Caption = styled.div`
   font-family: zh-light;
   font-size: 0.8rem;
 `;
+
+export const Link = styled.div`
+  color: #000096;
+  text-align: right;
+  font-size: 1.25rem;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;

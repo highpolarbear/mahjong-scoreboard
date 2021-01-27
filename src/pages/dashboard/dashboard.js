@@ -6,7 +6,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import cssValues from "../../utils/cssValues.json";
-import { TitleLargeReg } from "../../components/text/text";
+import { TitleLargeReg, Link } from "../../components/text/text";
 import RankingBox from "../../components/rankingbox/rankingbox";
 import hatsu from "../../assets/hatsu.png";
 import chun from "../../assets/chun.png";
@@ -14,8 +14,9 @@ import { Spacing32, Spacing96 } from "../../components/spacing/spacing";
 
 const BaseWrapper = styled.div`
   @media (max-width: ${cssValues.limits.mobileLimit}) {
-    padding-left: 1rem;
+    padding: 0 1rem;
   }
+  padding-bottom: 5rem;
 `;
 
 const Header = styled.div`
@@ -31,15 +32,26 @@ const HeaderIcon = styled.img`
   margin-right: 1rem;
 `;
 
-const Section = styled.div``;
+const HeaderTitle = styled.div`
+  display: flex;
+  flex-grow: 1;
+`;
 
-const AddUser = styled.div`
-  color: #000096;
-
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
+const Section = styled.div`
+  @media (min-width: ${cssValues.limits.mobileLimit}) {
+    box-shadow: 0px 30px 60px 0px #cacaca;
+    transition: box-shadow 0.3s ease-in-out;
+    padding: 4rem;
+    border-radius: 5rem;
   }
+`;
+
+const EmptyWarningText = styled.div`
+  margin: 5rem auto;
+  text-align: center;
+  font-family: zh-light;
+  font-size: 2rem;
+  color: #888888;
 `;
 
 const useStyles = makeStyles((theme) => ({
@@ -88,31 +100,35 @@ const Dashboard = (props) => {
     getContestants();
   }, []);
 
-  function GridListCompound() {
+  function Players() {
     const theme = useTheme();
     const matches = useMediaQuery(
       theme.breakpoints.up(cssValues.limits.mobileLimit.slice(0, -2))
     );
-
     return (
-      <GridList className={classes.gridList} cols={matches ? 2.5 : 1}>
-        {contestants &&
-          contestants.map((contestant, index) => {
-            return (
-              <GridListTile
-                className={classes.gridListTile}
-                key={contestant._id}
-              >
-                <RankingBox
-                  rank={index + 1}
-                  score={contestant.score}
-                  player={contestant.name}
+      <div>
+        {contestants.length === 0 ? (
+          <EmptyWarningText>好似未有人喎</EmptyWarningText>
+        ) : (
+          <GridList className={classes.gridList} cols={matches ? 2.5 : 1}>
+            {contestants.map((contestant, index) => {
+              return (
+                <GridListTile
+                  className={classes.gridListTile}
                   key={contestant._id}
-                />
-              </GridListTile>
-            );
-          })}
-      </GridList>
+                >
+                  <RankingBox
+                    rank={index + 1}
+                    score={contestant.score}
+                    player={contestant.name}
+                    key={contestant._id}
+                  />
+                </GridListTile>
+              );
+            })}
+          </GridList>
+        )}
+      </div>
     );
   }
 
@@ -121,24 +137,36 @@ const Dashboard = (props) => {
       <Spacing32 />
       <Section>
         <Header>
-          <HeaderIcon src={hatsu} alt="" />
-          <TitleLargeReg>參賽者</TitleLargeReg>
-          <AddUser
+          <HeaderTitle>
+            <HeaderIcon src={hatsu} alt="" />
+            <TitleLargeReg>參賽者</TitleLargeReg>
+          </HeaderTitle>
+          <Link
             onClick={() => {
               history.push("/create-user");
             }}
           >
             + 增加玩家
-          </AddUser>
+          </Link>
         </Header>
-
-        <GridListCompound />
+        <Players />
       </Section>
       <Spacing96 />
-      <Header>
-        <HeaderIcon src={chun} alt="" />
-        <TitleLargeReg>最近賽事</TitleLargeReg>
-      </Header>
+      <Section>
+        <Header>
+          <HeaderTitle>
+            <HeaderIcon src={chun} alt="" />
+            <TitleLargeReg>最近賽事</TitleLargeReg>
+          </HeaderTitle>
+          <Link
+            onClick={() => {
+              history.push("/create-user");
+            }}
+          >
+            + 記錄賽果
+          </Link>
+        </Header>
+      </Section>
     </BaseWrapper>
   );
 };

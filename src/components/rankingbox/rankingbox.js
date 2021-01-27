@@ -1,18 +1,22 @@
 import React from "react";
 import styled from "styled-components";
+import cssValues from "../../utils/cssValues.json";
 
 const Wrapper = styled.div`
   position: relative;
   top: 3rem;
-  border-radius: 4rem;
+  border-radius: 10px;
   width: 15rem;
   height: 15rem;
-  box-shadow: 20px 30px 30px 0px #cacaca;
+  box-shadow: 10px 15px 15px 0px #cacaca;
   transition: box-shadow 0.3s ease-in-out;
   margin: 0 0 0 1rem;
+  @media (max-width: ${cssValues.limits.mobileLimit}) {
+    border-radius: 3rem;
+  }
 
   &:hover {
-    box-shadow: 40px 60px 30px 0px #cacaca;
+    box-shadow: 20px 30px 15px 0px #cacaca;
     transition: box-shadow 0.3s ease-in-out;
   }
 `;
