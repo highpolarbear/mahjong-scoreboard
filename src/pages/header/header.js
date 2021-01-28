@@ -104,7 +104,7 @@ const Header = () => {
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link onClick={() => history.push("/")}>
+              <Link onClick={() => history.push("/create-match")}>
                 <p>記錄賽果</p>
               </Link>
             </MenuItem>

@@ -6,6 +6,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import Table from "@material-ui/core/Table";
+import TableContainer from "@material-ui/core/TableContainer";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
@@ -75,6 +76,12 @@ const useStyles = makeStyles((theme) => ({
       marginRight: "-3.5rem",
     },
   },
+  table: {
+    minWidth: 650,
+  },
+  tableHeader: {
+    fontFamily: "zh-Bold",
+  },
 }));
 
 const Dashboard = (props) => {
@@ -83,6 +90,7 @@ const Dashboard = (props) => {
   const classes = useStyles();
   const history = useHistory();
 
+  // Get all contestants from db
   useEffect(() => {
     async function getContestants() {
       const response = await fetch(
@@ -96,6 +104,7 @@ const Dashboard = (props) => {
       )
         .then((res) => res.json())
         .then((data) => {
+          // Sort entries by score
           return data.result.sort(function (a, b) {
             return b.score - a.score;
           });
@@ -106,6 +115,7 @@ const Dashboard = (props) => {
     getContestants();
   }, []);
 
+  // Get all previous contests from db
   useEffect(() => {
     async function getContests() {
       const response = await fetch(
@@ -119,6 +129,7 @@ const Dashboard = (props) => {
       )
         .then((res) => res.json())
         .then((data) => {
+          // Sort entries by chronological order
           return data.sort(function (a, b) {
             return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
           });
@@ -138,7 +149,7 @@ const Dashboard = (props) => {
         {contestants.length === 0 ? (
           <EmptyWarningText>好似未有人喎</EmptyWarningText>
         ) : (
-          <GridList className={classes.gridList} cols={matches ? 2.5 : 2}>
+          <GridList className={classes.gridList} cols={matches ? 2.5 : 1.3}>
             {contestants.map((contestant, index) => {
               return (
                 <GridListTile
@@ -161,53 +172,64 @@ const Dashboard = (props) => {
   };
 
   const Contests = () => {
-    const theme = useTheme();
     return (
       <div>
         {contests.length === 0 ? (
           <EmptyWarningText>仲未有比賽喎</EmptyWarningText>
         ) : (
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">時間</TableCell>
-                <TableCell align="center">贏家</TableCell>
-                <TableCell align="center">輸家</TableCell>
-                <TableCell align="center">自摸/出銃</TableCell>
-                <TableCell align="center">番數（每位輸家）</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {contests.map((contest) => {
-                const date = new Date(contest.date);
-                return (
-                  <TableRow key={contest._id}>
-                    <TableCell align="center">
-                      {date.getUTCDate()}
-                      {"/"}
-                      {date.getUTCMonth() + 1}
-                      {"/"}
-                      {date.getUTCFullYear()} {date.getUTCHours()}
-                      {":"}
-                      {date.getUTCMinutes()}
-                    </TableCell>
-                    <TableCell align="center">
-                      {contest.players.winner.name}
-                    </TableCell>
-                    <TableCell align="center">
-                      {contest.players.loser.map((user) => {
-                        return user.name + " ";
-                      })}
-                    </TableCell>
-                    <TableCell align="center">
-                      {contest.isSelfDraw ? "自摸" : "出銃"}
-                    </TableCell>
-                    <TableCell align="center">{contest.score}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+          <TableContainer>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classes.tableHeader} align="center">
+                    時間
+                  </TableCell>
+                  <TableCell className={classes.tableHeader} align="center">
+                    贏家
+                  </TableCell>
+                  <TableCell className={classes.tableHeader} align="center">
+                    輸家
+                  </TableCell>
+                  <TableCell className={classes.tableHeader} align="center">
+                    自摸/出銃
+                  </TableCell>
+                  <TableCell className={classes.tableHeader} align="center">
+                    番數（每位輸家）
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {contests.map((contest) => {
+                  const date = new Date(contest.date);
+                  return (
+                    <TableRow key={contest._id}>
+                      <TableCell align="center">
+                        {date.getUTCDate()}
+                        {"/"}
+                        {date.getUTCMonth() + 1}
+                        {"/"}
+                        {date.getUTCFullYear()} {date.getUTCHours()}
+                        {":"}
+                        {date.getUTCMinutes()}
+                      </TableCell>
+                      <TableCell align="center">
+                        {contest.players.winner.name}
+                      </TableCell>
+                      <TableCell align="center">
+                        {contest.players.loser.map((user) => {
+                          return user.name + " ";
+                        })}
+                      </TableCell>
+                      <TableCell align="center">
+                        {contest.isSelfDraw ? "自摸" : "出銃"}
+                      </TableCell>
+                      <TableCell align="center">{contest.score}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
         )}
       </div>
     );

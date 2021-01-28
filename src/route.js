@@ -7,6 +7,7 @@ import Header from "./pages/header/header";
 import Home from "./pages/home/home";
 import Dashboard from "./pages/dashboard/dashboard";
 import CreateUser from "./pages/createUser/createUser";
+import CreateMatch from "./pages/createMatch/createMatch";
 import Test from "./pages/test/test";
 
 const history = createBrowserHistory();
@@ -27,7 +28,7 @@ const Routes = () => {
           <Route path="/" exact component={Dashboard} />
           <Route path="/dashboard" exact component={Dashboard} />
           <Route path="/create-user" exact component={CreateUser} />
-          <Route path="/create-match" exact component={Home} />
+          <Route path="/create-match" exact component={CreateMatch} />
           <Route path="/view-match" exact component={Home} />
           <Route path="/test" exact component={Test} />
           <Route component={Dashboard} />
