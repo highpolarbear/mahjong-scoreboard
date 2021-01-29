@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import cssValues from "../../utils/cssValues.json";
-import { Caption } from "../text/text";
+import { Error } from "../text/text";
 
 const Input = styled.input`
   height: 3rem;
@@ -11,22 +10,15 @@ const Input = styled.input`
   margin-bottom: 0.5rem;
   border-radius: 5px;
   border: solid 20px red;
-  border: ${(props) => (props.error ? "solid 2px red;" : "solid 2px black;")};
-  @media (min-width: ${cssValues.limits.mobileLimit}) {
-    width: 100%;
-  }
+  border: ${(props) =>
+    props.error || props.alrExist ? "solid 2px red;" : "solid 2px black;"};
   &:focus {
     outline: none;
   }
 `;
 
-const Error = styled(Caption)`
-  text-align: left;
-  color: red;
-`;
-
 const Inputbox = (props) => {
-  const { placeholder, value, name, register, error } = props;
+  const { placeholder, value, name, register, error, alrExist } = props;
   return (
     <div>
       <Input
@@ -35,6 +27,7 @@ const Inputbox = (props) => {
         name={name}
         ref={register}
         error={error}
+        alrExist={alrExist}
       />
       <Error>{error && "好似未填好你個大名喎"}</Error>
     </div>

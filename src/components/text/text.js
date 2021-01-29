@@ -9,7 +9,7 @@ export const Title = styled.div`
 export const TitleLargeReg = styled.div`
   font-family: zh-regular;
   font-size: 2rem;
-  letter-spacing: 0.25rem;
+  letter-spacing: 0.1rem;
 `;
 
 export const Subtitle = styled.div`
@@ -33,4 +33,9 @@ export const Link = styled.div`
     cursor: pointer;
     text-decoration: underline;
   }
+`;
+
+export const Error = styled(Caption)`
+  text-align: left;
+  color: red;
 `;

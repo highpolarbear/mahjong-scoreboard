@@ -8,8 +8,7 @@ const Wrapper = styled.div`
   border-radius: 5px;
   width: 13rem;
   height: 13rem;
-  box-shadow: 0px 15px 15px 0px #cacaca;
-  border: 0.1px solid #eeeeee;
+  border: 1px solid #eeeeee;
   transition: box-shadow 0.3s ease-in-out;
   margin: 0 0 0 1rem;
   @media (max-width: ${cssValues.limits.mobileLimit}) {
@@ -17,7 +16,7 @@ const Wrapper = styled.div`
   }
 
   &:hover {
-    box-shadow: 0px 30px 15px 0px #cacaca;
+    box-shadow: 0px 15px 15px 0px #cacaca;
     transition: box-shadow 0.3s ease-in-out;
   }
 `;

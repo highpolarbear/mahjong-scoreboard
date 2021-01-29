@@ -263,7 +263,7 @@ const Dashboard = (props) => {
           </HeaderTitle>
           <Link
             onClick={() => {
-              history.push("/create-user");
+              history.push("/create-match");
             }}
           >
             + 記錄賽果
