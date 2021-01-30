@@ -75,7 +75,7 @@ export const ScoreSelection = (props) => {
             value="返回"
           />
           <Spacing10Horizontal />
-          <Submit type="submit" value="完成！" />
+          <Submit value="完成！" />
         </SameLineWrapper>
       </form>
     </Wrapper>

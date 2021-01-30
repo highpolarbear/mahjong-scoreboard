@@ -23,7 +23,7 @@ export const LoserSelection = (props) => {
     setLoserResult,
   } = props;
 
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, setError, clearErrors } = useForm();
   const [availableLosers, setAvailableLoser] = useState([]);
   const [checkedValues, setCheckedValues] = useState([]);
 
@@ -35,7 +35,16 @@ export const LoserSelection = (props) => {
   }, [winnerResult]);
 
   const onSubmit = (data) => {
-    setLoserResult(checkedValues);
+    if (checkedValues.length === 0) {
+      setError("loser", {
+        type: "manual",
+        message: "未㨂邊個輸喎！",
+      });
+    } else {
+      clearErrors();
+      setOnDisplay(3);
+      setLoserResult(checkedValues);
+    }
   };
 
   return (
@@ -54,40 +63,17 @@ export const LoserSelection = (props) => {
           setCheckedValues={setCheckedValues}
           register={register}
         />
-
-        {/* {availableLosers.map((contestant) => {
-          return (
-            <div>
-              <input
-                type="checkbox"
-                name={"contestLoser." + contestant._id}
-                key={"contestLoser." + contestant._id}
-                checked={checkedValues.includes(contestant._id)}
-                onChange={() => handleSelect(contestant._id)}
-                value={contestant._id}
-                ref={register}
-              />
-              {contestant.name}
-            </div>
-          );
-        })} */}
+        <Error>{errors.loser && errors.loser.message}</Error>
         <Spacing96 />
         <SameLineWrapper>
           <Back
-            type="submit"
             onClick={() => {
               setOnDisplay(1);
             }}
             value="返回"
           />
           <Spacing10Horizontal />
-          <Submit
-            type="submit"
-            onClick={() => {
-              setOnDisplay(3);
-            }}
-            value="下一步！"
-          />
+          <Submit onClick={onSubmit} value="下一步！" />
         </SameLineWrapper>
       </form>
     </Wrapper>

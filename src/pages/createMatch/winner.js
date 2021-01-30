@@ -10,10 +10,18 @@ import { Wrapper, Emoji } from "../../components/wrapper/wrapper";
 export const WinnerSelection = (props) => {
   const { onDisplay, setOnDisplay, allContestants, setWinnerResult } = props;
 
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, setError } = useForm();
 
   const onSubmit = (data) => {
-    setWinnerResult(data.winner);
+    if (!data.winner) {
+      setError("winner", {
+        type: "manual",
+        message: "未㨂邊個贏喎！",
+      });
+    } else {
+      setWinnerResult(data.winner);
+      setOnDisplay(2);
+    }
   };
 
   return (
@@ -26,14 +34,9 @@ export const WinnerSelection = (props) => {
         </div>
         <Spacing96 />
         <SingleSelect allContestants={allContestants} register={register} />
+        <Error>{errors.winner && errors.winner.message}</Error>
         <Spacing96 />
-        <Submit
-          type="submit"
-          onClick={() => {
-            setOnDisplay(2);
-          }}
-          value="下一步！"
-        />
+        <Submit type="submit" value="下一步！" />
       </form>
     </Wrapper>
   );

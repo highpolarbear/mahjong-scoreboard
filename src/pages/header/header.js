@@ -109,7 +109,7 @@ const Header = () => {
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link onClick={() => history.push("/")}>
+              <Link onClick={() => alert("敬請期待")}>
                 <p>番數表</p>
               </Link>
             </MenuItem>
