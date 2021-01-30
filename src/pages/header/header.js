@@ -85,7 +85,12 @@ const Header = () => {
     <BaseWrapper>
       <MainWrapper>
         <div>
-          <LogoGroup onClick={() => history.push("/")}>
+          <LogoGroup
+            onClick={() => {
+              history.push("/");
+              history.go(0);
+            }}
+          >
             <Logo />
             <Wrapper>
               <Title>麻將計分器</Title>

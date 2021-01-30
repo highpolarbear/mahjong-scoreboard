@@ -29,16 +29,23 @@ export const LoserSelection = (props) => {
 
   useEffect(() => {
     const losers = allContestants.filter((contestant) => {
-      return contestant._id != winnerResult;
+      return contestant._id !== winnerResult;
     });
     setAvailableLoser(losers);
-  }, [winnerResult]);
+  }, [allContestants, winnerResult]);
 
   const onSubmit = (data) => {
     if (checkedValues.length === 0) {
+      clearErrors();
       setError("loser", {
         type: "manual",
         message: "未㨂邊個輸喎！",
+      });
+    } else if (checkedValues.length > 3) {
+      clearErrors();
+      setError("loser", {
+        type: "manual",
+        message: "你張麻將枱八角形㗎？",
       });
     } else {
       clearErrors();

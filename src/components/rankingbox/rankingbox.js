@@ -35,9 +35,9 @@ const RankWrapper = styled.div`
   transform: translate(1rem, -2rem);
 `;
 
-const Hash = styled.div`
-  font-size: 2rem;
-`;
+// const Hash = styled.div`
+//   font-size: 2rem;
+// `;
 
 const ContentWrapper = styled.div`
   font-family: zh-regular;

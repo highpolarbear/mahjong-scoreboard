@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 // import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { useForm } from "react-hook-form";
 // import cssValues from "../../utils/cssValues.json";
-import { Back, Submit } from "../../components/button/button";
-import { TitleLargeReg, Error } from "../../components/text/text";
+import { Submit } from "../../components/button/button";
+import { TitleLargeReg } from "../../components/text/text";
 import { Spacing32, Spacing96 } from "../../components/spacing/spacing";
 import {
   Wrapper,

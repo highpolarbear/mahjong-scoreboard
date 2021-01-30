@@ -1,15 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Back, Submit } from "../../components/button/button";
-import { TitleLargeReg, Error } from "../../components/text/text";
+import { TitleLargeReg } from "../../components/text/text";
 import {
   Spacing32,
   Spacing96,
   Spacing10Horizontal,
 } from "../../components/spacing/spacing";
-import Inputbox from "../../components/inputbox/inputbox";
-// import Switch from "../../components/switch/switch";
+import { InputboxWithBtn } from "../../components/inputbox/inputbox";
 import {
   Wrapper,
   Emoji,
@@ -19,6 +17,7 @@ import {
 export const ScoreSelection = (props) => {
   const { onDisplay, setOnDisplay, winnerResult, loserResult } = props;
   const { register, handleSubmit, errors } = useForm();
+  const [score, setScore] = useState(1);
 
   const onSubmit = async (data) => {
     await fetch(process.env.REACT_APP_API_URL + "/log-match", {
@@ -53,16 +52,21 @@ export const ScoreSelection = (props) => {
           <TitleLargeReg>幾多番？</TitleLargeReg>
         </div>
         <Spacing96 />
-        <Inputbox
+        <InputboxWithBtn
+          type="text"
           placeholder="番數"
           name="score"
+          value={score}
+          setScore={setScore}
           register={register({
             required: "你未寫幾多番喎",
           })}
           error={errors.score}
         />
         <Spacing96 />
-        {/* <SameLineWrapper>
+        {/* 
+        TODO: Self-draw functionality
+        <SameLineWrapper>
           <Switch name="selfDraw" checked={true} register={register} />
           <div>係咪自摸呢？</div>
         </SameLineWrapper> */}
@@ -75,7 +79,7 @@ export const ScoreSelection = (props) => {
             value="返回"
           />
           <Spacing10Horizontal />
-          <Submit value="完成！" />
+          <Submit type="submit" value="完成！" onClick={onSubmit} />
         </SameLineWrapper>
       </form>
     </Wrapper>

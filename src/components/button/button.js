@@ -4,6 +4,7 @@ import cssValues from "../../utils/cssValues.json";
 
 const SubmitBtn = styled.input`
   -webkit-appearance: none;
+  outline: none;
   width: 45%;
   height: 4rem;
   background-color: ${cssValues.colours.brandBlue};
@@ -15,15 +16,22 @@ const SubmitBtn = styled.input`
   text-shadow: 0px 0px 0px transparent;
   box-shadow: 0px 10px 15px 0px #cacaca;
   transition: box-shadow 0.3s ease-in-out;
+  caret-color: transparent;
   &:hover {
     cursor: pointer;
     box-shadow: 0px 5px 15px 0px #cacaca;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  &:active {
+    cursor: pointer;
+    box-shadow: 3px 3px 15px 0px #cacaca;
     transition: box-shadow 0.3s ease-in-out;
   }
 `;
 
 const BackBtn = styled.input`
   -webkit-appearance: none;
+  outline: none;
   width: 45%;
   height: 4rem;
   background-color: ${cssValues.colours.lightGray};
@@ -35,9 +43,15 @@ const BackBtn = styled.input`
   text-shadow: 0px 0px 0px transparent;
   box-shadow: 0px 10px 15px 0px #cacaca;
   transition: box-shadow 0.3s ease-in-out;
+  caret-color: transparent;
   &:hover {
     cursor: pointer;
     box-shadow: 0px 5px 15px 0px #cacaca;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  &:active {
+    cursor: pointer;
+    box-shadow: 3px 3px 15px 0px #cacaca;
     transition: box-shadow 0.3s ease-in-out;
   }
 `;

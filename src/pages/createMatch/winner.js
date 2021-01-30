@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { Back, Submit } from "../../components/button/button";
+import { Submit } from "../../components/button/button";
 import { TitleLargeReg, Error } from "../../components/text/text";
 import { Spacing32, Spacing96 } from "../../components/spacing/spacing";
 import { SingleSelect } from "../../components/select/select";

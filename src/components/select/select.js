@@ -21,6 +21,10 @@ const ToggleBox = styled.label`
     box-shadow: 10px 10px 15px 0px #cacaca;
     transition: box-shadow 0.3s ease-in-out;
   }
+  &:active {
+    box-shadow: 3px 3px 15px 0px #cacaca;
+    transition: box-shadow 0.3s ease-in-out;
+  }
 `;
 
 const SelectBox = styled.input`
@@ -37,6 +41,7 @@ const SelectBox = styled.input`
 `;
 
 const NameBox = styled(TitleLargeReg)`
+  cursor: pointer;
   display: block;
   position: absolute;
   top: 50%;
@@ -63,7 +68,7 @@ export const SingleSelect = (props) => {
               />
 
               <ToggleBox for={contestant._id}>Toggle</ToggleBox>
-              <NameBox>{contestant.name}</NameBox>
+              <NameBox for={contestant._id}>{contestant.name}</NameBox>
             </SameLineWrapper>
           </GridListTile>
         );
@@ -105,7 +110,9 @@ export const MultipleSelect = (props) => {
               >
                 Toggle
               </ToggleBox>
-              <NameBox>{contestant.name}</NameBox>
+              <NameBox onClick={() => handleSelect(contestant._id)}>
+                {contestant.name}
+              </NameBox>
             </SameLineWrapper>
           </GridListTile>
         );

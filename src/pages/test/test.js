@@ -1,12 +1,12 @@
 import React from "react";
-import Switch from "../../components/switch/switch";
+import { InputboxWithBtn } from "../../components/inputbox/inputbox";
 
 const Test = () => {
   return (
     <div>
       <div>.</div>
 
-      <Switch />
+      <InputboxWithBtn />
     </div>
   );
 };

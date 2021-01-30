@@ -46,6 +46,7 @@ const modifyUserScore = async (isSelfDraw, players, score) => {
   // if ((!isSelfDraw || isSelfDraw == "false") && players.loser.length > 1) {
   //   return "Non-self-draw matches cannot have more than one loser.";
   // } else
+  if (score === undefined) return "No score received";
   if (players.winner && players.loser) {
     const winner = await User.updateOne(
       { _id: players.winner },
