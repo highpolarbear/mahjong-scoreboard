@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import cssValues from "../../utils/cssValues.json";
 
 export const Title = styled.div`
   font-family: zh-bold;
@@ -26,7 +27,7 @@ export const Caption = styled.div`
 `;
 
 export const Link = styled.div`
-  color: #000096;
+  color: ${cssValues.colours.linkBlue};
   text-align: right;
   font-size: 1.25rem;
   &:hover {
@@ -37,5 +38,5 @@ export const Link = styled.div`
 
 export const Error = styled(Caption)`
   text-align: left;
-  color: red;
+  color: ${cssValues.colours.red};
 `;

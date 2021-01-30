@@ -1,24 +1,34 @@
 import React from "react";
 import styled from "styled-components";
+import cssValues from "../../utils/cssValues.json";
 import { Error } from "../text/text";
 
 const Input = styled.input`
   height: 3rem;
   font-size: 1.25rem;
-  width: calc(100% - 2rem);
+  width: calc(${(props) => props.width}% - 2rem);
   padding-left: 1.25rem;
   margin-bottom: 0.5rem;
   border-radius: 5px;
-  border: solid 20px red;
   border: ${(props) =>
-    props.error || props.alrExist ? "solid 2px red;" : "solid 2px black;"};
+    props.error || props.alrExist
+      ? "solid 2px " + cssValues.colours.red + ";"
+      : "solid 2px " + cssValues.colours.darkGray + ";"};
   &:focus {
     outline: none;
   }
 `;
 
 const Inputbox = (props) => {
-  const { placeholder, value, name, register, error, alrExist } = props;
+  const {
+    width = 100,
+    placeholder,
+    value,
+    name,
+    register,
+    error,
+    alrExist,
+  } = props;
   return (
     <div>
       <Input
@@ -28,8 +38,9 @@ const Inputbox = (props) => {
         ref={register}
         error={error}
         alrExist={alrExist}
+        width={width}
       />
-      <Error>{error && "好似未填好你個大名喎"}</Error>
+      <Error>{error && error.message}</Error>
     </div>
   );
 };

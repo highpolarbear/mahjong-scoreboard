@@ -58,7 +58,7 @@ const EmptyWarningText = styled.div`
   text-align: center;
   font-family: zh-light;
   font-size: 2rem;
-  color: #888888;
+  color: ${cssValues.colours.darkGray};
 `;
 
 const useStyles = makeStyles((theme) => ({
@@ -208,9 +208,10 @@ const Dashboard = (props) => {
                         {"/"}
                         {date.getUTCMonth() + 1}
                         {"/"}
-                        {date.getUTCFullYear()} {date.getUTCHours()}
+                        {date.getUTCFullYear()}{" "}
+                        {("0" + date.getUTCHours()).slice(-2)}
                         {":"}
-                        {date.getUTCMinutes()}
+                        {("0" + date.getUTCMinutes()).slice(-2)}
                       </TableCell>
                       <TableCell align="center">
                         {contest.players.winner.name}

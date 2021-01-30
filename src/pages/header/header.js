@@ -9,7 +9,7 @@ const BaseWrapper = styled.div`
   height: 5rem;
   width: 100%;
   z-index: 99;
-  background-color: white;
+  background-color: ${cssValues.colours.white};
   box-shadow: 0px 0.5px 14px 0px #cacaca;
   position: fixed;
   top: 0;

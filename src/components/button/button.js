@@ -4,10 +4,10 @@ import cssValues from "../../utils/cssValues.json";
 
 const SubmitBtn = styled.input`
   -webkit-appearance: none;
-  width: 50%;
+  width: 45%;
   height: 4rem;
-  background-color: #40c1b7;
-  color: white;
+  background-color: ${cssValues.colours.brandBlue};
+  color: ${cssValues.colours.white};
   font-size: 1.25rem;
   border: 0px solid transparent;
   border-radius: 30px;
@@ -15,9 +15,6 @@ const SubmitBtn = styled.input`
   text-shadow: 0px 0px 0px transparent;
   box-shadow: 0px 10px 15px 0px #cacaca;
   transition: box-shadow 0.3s ease-in-out;
-  @media (max-width: ${cssValues.limits.mobileLimit}) {
-    width: 100%;
-  }
   &:hover {
     cursor: pointer;
     box-shadow: 0px 5px 15px 0px #cacaca;
@@ -27,10 +24,10 @@ const SubmitBtn = styled.input`
 
 const BackBtn = styled.input`
   -webkit-appearance: none;
-  width: 50%;
+  width: 45%;
   height: 4rem;
-  background-color: #c7c7c7;
-  color: black;
+  background-color: ${cssValues.colours.lightGray};
+  color: ${cssValues.colours.black};
   font-size: 1.25rem;
   border: 0px solid transparent;
   border-radius: 30px;
@@ -38,9 +35,6 @@ const BackBtn = styled.input`
   text-shadow: 0px 0px 0px transparent;
   box-shadow: 0px 10px 15px 0px #cacaca;
   transition: box-shadow 0.3s ease-in-out;
-  @media (max-width: ${cssValues.limits.mobileLimit}) {
-    width: 100%;
-  }
   &:hover {
     cursor: pointer;
     box-shadow: 0px 5px 15px 0px #cacaca;

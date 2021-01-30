@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import cssValues from "../../utils/cssValues.json";
 
 export const Wrapper = styled.div`
@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
     width: 100%;
     border-radius: 0;
     box-shadow: unset;
-    padding: 5rem 1rem;
+    padding: 2rem 1rem;
   }
 `;
 
@@ -31,7 +31,7 @@ export const Emoji = styled.div`
 `;
 
 export const ProgressBar = styled.ul`
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
   overflow: hidden;
   counter-reset: step;
   text-align: center;
@@ -39,6 +39,9 @@ export const ProgressBar = styled.ul`
   justify-content: center;
   align-items: center;
   padding-left: unset;
+  @media (max-width: ${cssValues.limits.mobileLimit}) {
+    margin-bottom: 0;
+  }
 `;
 
 export const Progress = styled.li`
@@ -47,7 +50,8 @@ export const Progress = styled.li`
   width: 33.33%;
   float: left;
   position: relative;
-  color: ${(props) => (props.display ? "black" : "#afafaf")};
+  color: ${(props) =>
+    props.display ? cssValues.colours.black : cssValues.colours.darkGray};
 
   &:before {
     content: counter(step);
@@ -57,9 +61,10 @@ export const Progress = styled.li`
     line-height: 26px;
     display: block;
     font-size: 12px;
-    color: white;
+    color: ${cssValues.colours.white};
     text-align: center;
-    background: ${(props) => (props.display ? "#40c1b7" : "#afafaf")};
+    background: ${(props) =>
+      props.display ? cssValues.colours.brandBlue : cssValues.colours.darkGray};
     border-radius: 25px;
     margin: 0 auto 10px auto;
   }
@@ -78,4 +83,9 @@ export const Progress = styled.li`
   &:first-child:after {
     content: none;
   }
+`;
+
+export const SameLineWrapper = styled.div`
+  display: flex;
+  position: relative;
 `;

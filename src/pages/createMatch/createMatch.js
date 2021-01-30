@@ -22,8 +22,6 @@ const CreateMatch = () => {
   const [allContestants, setAllContestants] = useState([]);
   const [winnerResult, setWinnerResult] = useState("");
   const [loserResult, setLoserResult] = useState([]);
-  const [score, setScore] = useState("");
-  const [selfDraw, setSelfDraw] = useState(false);
 
   useEffect(() => {
     async function getContestants() {
@@ -78,12 +76,8 @@ const CreateMatch = () => {
       <ScoreSelection
         onDisplay={onDisplay}
         setOnDisplay={setOnDisplay}
-        score={score}
         winnerResult={winnerResult}
         loserResult={loserResult}
-        setScore={setScore}
-        selfDraw={selfDraw}
-        setSelfDraw={setSelfDraw}
       />
 
       <Wrapper onDisplay={onDisplay === 4}>
@@ -101,6 +95,24 @@ const CreateMatch = () => {
             history.push("/dashboard");
           }}
           value="返主頁"
+        />
+      </Wrapper>
+
+      <Wrapper onDisplay={onDisplay === 5}>
+        <div>
+          <Emoji>⛔️</Emoji>
+          <Spacing32 />
+          <TitleLargeReg>出錯喇！</TitleLargeReg>
+          <Spacing32 />
+          <TitleLargeReg>再試多次啦！</TitleLargeReg>
+        </div>
+        <Spacing96 />
+        <Submit
+          type="submit"
+          onClick={() => {
+            history.go(0);
+          }}
+          value="再試一次"
         />
       </Wrapper>
     </MainWrapper>

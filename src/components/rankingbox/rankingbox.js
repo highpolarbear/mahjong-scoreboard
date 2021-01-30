@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   }
 
   &:hover {
+    cursor: pointer;
     box-shadow: 0px 15px 15px 0px #cacaca;
     transition: box-shadow 0.3s ease-in-out;
   }
@@ -28,7 +29,7 @@ const RankWrapper = styled.div`
   font-size: 4em;
   height: 4rem;
   width: 2rem;
-  background-color: white;
+  background-color: ${cssValues.colours.white};
   text-align: center;
   position: absolute;
   transform: translate(1rem, -2rem);
@@ -63,7 +64,7 @@ export const RankingBox = (props) => {
   const { rank, score, player } = props;
   const formattedScore = score >= 0 ? "+" + score : score;
   return (
-    <Wrapper>
+    <Wrapper onClick={() => alert("敬請期待")}>
       <RankWrapper>
         {/* <Hash>#</Hash> */}
         {rank}

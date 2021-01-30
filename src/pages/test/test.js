@@ -1,12 +1,12 @@
 import React from "react";
-import CreateUser from "../createUser/createUser";
+import Switch from "../../components/switch/switch";
 
 const Test = () => {
   return (
     <div>
       <div>.</div>
 
-      <CreateUser />
+      <Switch />
     </div>
   );
 };

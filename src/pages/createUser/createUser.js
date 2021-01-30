@@ -60,7 +60,7 @@ export const CreateUser = () => {
             placeholder="話我知你叫咩名啦！例：靚仔"
             name="name"
             register={register({
-              required: true,
+              required: "好似未填好你個大名喎",
             })}
             alrExist={errAlrExist}
             error={errors.name}
