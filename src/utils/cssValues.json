@@ -1,0 +1,15 @@
+{
+    "limits": {
+        "mobileLimit":  "769px"
+    },
+    "colours": {
+        "white": "#ffffff",
+        "black": "#000000",
+        "red": "#ff0000",
+        "brandBlue": "#40c1b7",
+        "linkBlue": "#000096",
+        "ultraLightGray": "#ededed",
+        "lightGray": "#e6e6e6",
+        "darkGray": "#afafaf"
+    }
+}
