@@ -35,12 +35,14 @@ const matchSchema = new Schema({
     winner: {
       type: mongoose.ObjectId,
       required: true,
+      ref: "User",
     },
 
     loser: {
       type: [
         {
           type: mongoose.ObjectId,
+          ref: "User",
         },
       ],
       validate: [arrayLimit, "{PATH} wrong number of losers."],
